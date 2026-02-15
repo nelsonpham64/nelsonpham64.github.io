@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# Bakery Vending Machine - Nelson Pham</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #1a1a1a;
+            --color-surface: #242424;
+            --color-card: #2d2d2d;
+            --color-warm-gold: #d4a574;
+            --color-gold-light: #e8c4a0;
+            --color-text: #e8e8e8;
+            --color-text-dim: #b0b0b0;
+            --color-border: #3a3a3a;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+        }
+
+        nav {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-warm-gold);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--color-text-dim);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--color-warm-gold);
+        }
+
+        .project-hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
+        }
+
+        .project-hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .project-hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--color-warm-gold);
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(212, 165, 116, 0.15);
+            color: var(--color-gold-light);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .project-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-warm-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .section h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-gold-light);
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .section p {
+            color: var(--color-text-dim);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .section ul, .section ol {
+            color: var(--color-text-dim);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight {
+            color: var(--color-warm-gold);
+            font-weight: 600;
+        }
+
+        .feature-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-warm-gold);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .feature-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--color-warm-gold);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--color-text-dim);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            min-height: 300px;
+            background: var(--color-card);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-dim);
+            font-size: 1.1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--color-warm-gold);
+            color: #1a1a1a;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-warm-gold);
+            border: 2px solid var(--color-warm-gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-warm-gold);
+            color: #1a1a1a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            color: var(--color-text-dim);
+            border-top: 1px solid var(--color-border);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .project-content {
+                padding: 3rem 4%;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Nelson Pham</a>
+        <a href="index.html#projects" class="back-link">← Back to Portfolio</a>
+    </nav>
+
+    <div class="project-hero">
+        <h1>Bakery Vending Machine</h1>
+        <p class="subtitle">ISDS 309 - C# Programming Project</p>
+        <div class="project-tags">
+            <span class="tag">C#</span>
+            <span class="tag">.NET</span>
+            <span class="tag">Windows Forms</span>
+            <span class="tag">File I/O</span>
+        </div>
+    </div>
+
+    <div class="project-content">
+        <div class="section">
+            <h2>Project Overview</h2>
+            <p>
+                This program is a fully functional <span class="highlight">bakery vending machine application</span> 
+                that allows users to choose from four different beverages and two food items, displaying the total 
+                after selecting the quantity of each product.
+            </p>
+            <p>
+                Using this program, users can create an order, complete payment, and receive a printed receipt 
+                showing the order number, items purchased, payment method, and total dollar amount including tax.
+            </p>
+        </div>
+
+        <div class="image-placeholder">
+            🖥️ Application Interface Screenshot<br>
+            <small>(Upload screenshots of your vending machine interface here)</small>
+        </div>
+
+        <div class="section">
+            <h2>Key Features</h2>
+
+            <div class="feature-card">
+                <h4>🔐 User Authentication System</h4>
+                <p>
+                    Secure login functionality with username and password verification. Login credentials are 
+                    stored in a text file, allowing for easy addition of new users and passcodes. All login 
+                    attempts are tracked with timestamps and success status.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>📝 Activity Logging</h4>
+                <p>
+                    Comprehensive activity log that tracks all login attempts including username, time, date, 
+                    and success status. This provides a complete audit trail for security and usage monitoring.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🛒 Shopping Cart System</h4>
+                <p>
+                    Interactive order management where users can select multiple items, adjust quantities, 
+                    and view real-time order summaries. Includes a "Clear Cart" function to start over 
+                    if needed.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>💳 Payment Processing</h4>
+                <p>
+                    Complete checkout flow with payment information collection. Users can review their 
+                    total before proceeding to payment or cancel to modify their order.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🧾 Receipt Generation</h4>
+                <p>
+                    Automatic receipt printing after completed payment. Receipts include order number, 
+                    itemized list of purchases, payment method, subtotal, tax, and grand total.
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Technical Implementation</h2>
+            
+            <h3>File-Based Data Management</h3>
+            <p>The application uses text files for persistent data storage:</p>
+            <ul>
+                <li><span class="highlight">Login.txt:</span> Stores user credentials (username and password pairs)</li>
+                <li><span class="highlight">ActivityLog.txt:</span> Records all login attempts with timestamp and status</li>
+                <li><span class="highlight">Products.txt:</span> Contains product catalog with names and prices</li>
+                <li><span class="highlight">Receipt.txt:</span> Generates formatted receipt for completed transactions</li>
+            </ul>
+
+            <h3>User Workflow</h3>
+            <ol>
+                <li>User logs in with credentials → validated against Login.txt</li>
+                <li>Successful login displays product selection interface</li>
+                <li>User selects items and quantities → order summary updates in real-time</li>
+                <li>User reviews total and proceeds to checkout</li>
+                <li>Payment information collected and validated</li>
+                <li>Receipt generated and saved to Receipt.txt</li>
+                <li>Option to place another order or exit application</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Technologies Used</h2>
+            <ul>
+                <li><span class="highlight">C# Programming Language:</span> Core application logic</li>
+                <li><span class="highlight">Windows Forms:</span> Graphical user interface</li>
+                <li><span class="highlight">File I/O Operations:</span> Data persistence and logging</li>
+                <li><span class="highlight">.NET Framework:</span> Application runtime environment</li>
+                <li><span class="highlight">Visual Studio:</span> Development environment</li>
+            </ul>
+        </div>
+
+        <div class="image-placeholder">
+            📸 Application Workflow Screenshots<br>
+            <small>(Upload screenshots showing: Login screen, Product selection, Order summary, Payment screen, Receipt)</small>
+        </div>
+
+        <div class="section">
+            <h2>What I Learned</h2>
+            <p>
+                This project provided hands-on experience with multiple aspects of software development:
+            </p>
+            <ul>
+                <li>Implementing secure authentication and session management</li>
+                <li>Working with file I/O for data persistence without a database</li>
+                <li>Designing intuitive user interfaces with Windows Forms</li>
+                <li>Handling user input validation and error checking</li>
+                <li>Managing application state across multiple forms</li>
+                <li>Creating formatted text output for receipts and logs</li>
+                <li>Following object-oriented programming principles</li>
+            </ul>
+            <p>
+                The challenge of building a complete transactional system taught me how different 
+                components of an application must work together seamlessly to provide a good user 
+                experience while maintaining data integrity and security.
+            </p>
+        </div>
+
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary">View Code on GitHub</a>
+            <a href="index.html#projects" class="btn btn-secondary">← Back to Projects</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nelson Pham. Built with care ☕</p>
+    </footer>
+</body>
+</html>
