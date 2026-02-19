@@ -46,7 +46,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 26, 26, 0.95);
+            background: var(--color-bg); /* FIX: remove discoloration */
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--color-border);
@@ -65,7 +65,8 @@
             list-style: none;
         }
 
-        .nav-links a { n
+        /* FIX: removed stray "n" that broke styling */
+        .nav-links a {
             color: var(--color-text-dim);
             text-decoration: none;
             font-size: 1rem;
@@ -189,6 +190,7 @@
             padding: 5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            scroll-margin-top: 120px; /* FIX: anchors don’t hide under fixed nav */
         }
 
         .section-title {
@@ -554,8 +556,8 @@
     <nav>
         <div class="logo">Nelson Pham</div>
         <ul class="nav-links">
-            <li><a href="#projects">Projects</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -572,6 +574,55 @@
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn-primary">View My Projects</a>
                 <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOVED UP: ABOUT now appears before Projects -->
+    <section id="about">
+        <div class="about-section">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="profile.jpg" alt="Nelson Pham" onerror="this.style.display='none'">
+                </div>
+
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>
+                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, 
+                        with a strong interest in technology and its applications in solving complex business problems.
+                    </p>
+                    <p>
+                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms. 
+                        Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
+                    </p>
+                    <p>
+                        I'm passionate about bridging the gap between data and decision-making, using analytics to 
+                        drive insights and create value. Thank you for taking the time to explore my work.
+                    </p>
+
+                    <div class="skills-section">
+                        <h3>Skills & Tools</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <h4>Programming</h4>
+                                <p>C#, Python, SQL</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Data Analytics</h4>
+                                <p>Excel, Tableau, Data Visualization</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Database Management</h4>
+                                <p>SQL Server, Database Design, ERD</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Business Tools</h4>
+                                <p>Microsoft Project, PowerPoint, Word</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -624,8 +675,6 @@
                 </div>
             </a>
 
-
-
             <a href="analytics-project.html" class="project-link">
                 <div class="project-card">
                     <div class="project-image">
@@ -645,55 +694,6 @@
                     </div>
                 </div>
             </a>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="about-section">
-            <div class="about-content">
-                <div class="about-image">
-                    <!-- Replace this src with your actual image path -->
-                    <img src="profile.jpg" alt="Nelson Pham" onerror="this.style.display='none'">
-                </div>
-
-                <div class="about-text">
-                    <h2>About Me</h2>
-                    <p>
-                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, 
-                        with a strong interest in technology and its applications in solving complex business problems.
-                    </p>
-                    <p>
-                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms. 
-                        Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
-                    </p>
-                    <p>
-                        I'm passionate about bridging the gap between data and decision-making, using analytics to 
-                        drive insights and create value. Thank you for taking the time to explore my work.
-                    </p>
-
-                    <div class="skills-section">
-                        <h3>Skills & Tools</h3>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <h4>Programming</h4>
-                                <p>C#, Python, SQL</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Data Analytics</h4>
-                                <p>Excel, Tableau, Data Visualization</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Database Management</h4>
-                                <p>SQL Server, Database Design, ERD</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Business Tools</h4>
-                                <p>Microsoft Project, PowerPoint, Word</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -722,7 +722,8 @@
         <p>&copy; 2026 Nelson Pham. Built with care ☕</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -757,3 +758,9 @@
         document.querySelectorAll('.project-card, .skill-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
+
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
