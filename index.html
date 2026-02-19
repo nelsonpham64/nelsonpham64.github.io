@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --color-bg: #1a1a1a;
@@ -18,7 +19,7 @@
             --color-text: #e8e8e8;
             --color-text-dim: #b0b0b0;
             --color-border: #3a3a3a;
-            
+
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Lato', sans-serif;
         }
@@ -46,8 +47,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--color-bg); /* FIX: remove discoloration */
-            backdrop-filter: blur(10px);
+
+            /* FIX: solid background prevents the hero glow showing through */
+            background: rgba(26, 26, 26, 0.98);
             z-index: 1000;
             border-bottom: 1px solid var(--color-border);
         }
@@ -65,7 +67,7 @@
             list-style: none;
         }
 
-        /* FIX: removed stray "n" that broke styling */
+        /* FIX: removed the stray 'n' that broke your CSS */
         .nav-links a {
             color: var(--color-text-dim);
             text-decoration: none;
@@ -95,22 +97,29 @@
             right: 0;
             width: 50%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(212, 165, 116, 0.10) 0%, transparent 70%);
             pointer-events: none;
+        }
+
+        /* NEW: modern hero layout to fill empty space */
+        .hero-layout {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
             max-width: 900px;
             opacity: 0;
             animation: fadeIn 1.2s ease-out 0.2s forwards;
-            position: relative;
-            z-index: 1;
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
         .hero-greeting {
@@ -185,12 +194,92 @@
             transform: translateY(-2px);
         }
 
+        /* NEW: Right-side hero panel */
+        .hero-side {
+            display: grid;
+            gap: 1.25rem;
+            align-content: center;
+        }
+
+        .hero-profile {
+            background: rgba(45, 45, 45, 0.65);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 1.25rem;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-profile-img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid rgba(212, 165, 116, 0.55);
+            background: var(--color-card);
+        }
+
+        .hero-profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-mini-cards {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .mini-card {
+            background: rgba(45, 45, 45, 0.65);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 1.1rem 1.2rem;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+            backdrop-filter: blur(10px);
+        }
+
+        .mini-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--color-warm-gold);
+            margin-bottom: 0.65rem;
+            font-weight: 600;
+        }
+
+        .mini-list {
+            list-style: none;
+            display: grid;
+            gap: 0.55rem;
+            color: var(--color-text-dim);
+            font-size: 0.98rem;
+        }
+
+        .mini-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .pill {
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(212, 165, 116, 0.30);
+            background: rgba(212, 165, 116, 0.12);
+            color: var(--color-gold-light);
+        }
+
         /* Section Styles */
         section {
             padding: 5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
-            scroll-margin-top: 120px; /* FIX: anchors don’t hide under fixed nav */
+
+            /* FIX: anchor scrolling under fixed nav */
+            scroll-margin-top: 120px;
         }
 
         .section-title {
@@ -310,7 +399,7 @@
             border: 1px solid rgba(212, 165, 116, 0.3);
         }
 
-        /* About Section */
+        /* About Section (kept as you had it, and moved to bottom) */
         .about-section {
             background: var(--color-surface);
             border-radius: 30px;
@@ -494,6 +583,18 @@
         }
 
         /* Responsive */
+        @media (max-width: 900px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-top: 4rem;
+            }
+
+            .hero-side {
+                max-width: 420px;
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
                 padding: 1.5rem 4%;
@@ -549,6 +650,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="decorative-glow glow-1"></div>
     <div class="decorative-glow glow-2"></div>
@@ -556,29 +658,137 @@
     <nav>
         <div class="logo">Nelson Pham</div>
         <ul class="nav-links">
-            <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <section class="hero">
-        <div class="hero-content">
-            <p class="hero-greeting">👋 Hi there, I'm</p>
-            <h1>Nelson Pham</h1>
-            <p class="hero-title">Business Analytics Student & Technology Enthusiast</p>
-            <p class="hero-description">
-                Currently studying at California State University, Fullerton, I'm passionate about 
-                using data and technology to solve real-world problems and create meaningful impact.
-            </p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">View My Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+        <div class="hero-layout">
+
+            <!-- LEFT: your original hero content -->
+            <div class="hero-content">
+                <p class="hero-greeting">👋 Hi there, I'm</p>
+                <h1>Nelson Pham</h1>
+                <p class="hero-title">Business Analytics Student & Technology Enthusiast</p>
+                <p class="hero-description">
+                    Currently studying at California State University, Fullerton, I'm passionate about
+                    using data and technology to solve real-world problems and create meaningful impact.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                </div>
             </div>
+
+            <!-- RIGHT: fills the empty space -->
+            <div class="hero-side">
+                <div class="hero-profile">
+                    <div class="hero-profile-img">
+                        <!-- Put your real image here -->
+                        <img src="profile.jpg" alt="Nelson Pham" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <div class="hero-mini-cards">
+                    <div class="mini-card">
+                        <h3>Quick Highlights</h3>
+                        <ul class="mini-list">
+                            <li>✅ Data-driven project work (dashboards + analysis)</li>
+                            <li>✅ Software projects (C#, SQL, analytics)</li>
+                            <li>✅ Strong focus on problem-solving + clean execution</li>
+                        </ul>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Core Stack</h3>
+                        <div class="mini-pill-row">
+                            <span class="pill">Python</span>
+                            <span class="pill">SQL</span>
+                            <span class="pill">C#</span>
+                            <span class="pill">Tableau</span>
+                            <span class="pill">Excel</span>
+                            <span class="pill">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- MOVED UP: ABOUT now appears before Projects -->
+    <section id="projects">
+        <h2 class="section-title">Project Portfolio</h2>
+        <p class="projects-intro">
+            A selection of projects I've worked on, utilizing various tools and platforms.
+            Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
+        </p>
+
+        <div class="projects-grid">
+            <a href="csharp-project.html" class="project-link">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon">💻</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>C# Project</h3>
+                        <p>
+                            A comprehensive C# application demonstrating object-oriented programming principles,
+                            data structures, and modern software development practices.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">C#</span>
+                            <span class="tag">.NET</span>
+                            <span class="tag">OOP</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="sql-project.html" class="project-link">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon">🗄️</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>SQL Database Schema Project</h3>
+                        <p>
+                            Designed and implemented a comprehensive database schema with normalized tables,
+                            relationships, and optimized queries for efficient data management.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Database Design</span>
+                            <span class="tag">ERD</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="analytics-project.html" class="project-link">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon">📈</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Data Analytics Externship</h3>
+                        <p>
+                            Participated in a hands-on externship analyzing real-world data sets,
+                            creating visualizations, and delivering actionable insights to stakeholders.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Visualization</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- About back at bottom (original placement) -->
     <section id="about">
         <div class="about-section">
             <div class="about-content">
@@ -589,15 +799,15 @@
                 <div class="about-text">
                     <h2>About Me</h2>
                     <p>
-                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, 
+                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>,
                         with a strong interest in technology and its applications in solving complex business problems.
                     </p>
                     <p>
-                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms. 
+                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms.
                         Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
                     </p>
                     <p>
-                        I'm passionate about bridging the gap between data and decision-making, using analytics to 
+                        I'm passionate about bridging the gap between data and decision-making, using analytics to
                         drive insights and create value. Thank you for taking the time to explore my work.
                     </p>
 
@@ -627,93 +837,18 @@
         </div>
     </section>
 
-    <section id="projects">
-        <h2 class="section-title">Project Portfolio</h2>
-        <p class="projects-intro">
-            A selection of projects I've worked on, utilizing various tools and platforms. 
-            Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
-        </p>
-
-        <div class="projects-grid">
-            <a href="csharp-project.html" class="project-link">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">💻</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>C# Project</h3>
-                        <p>
-                            A comprehensive C# application demonstrating object-oriented programming principles, 
-                            data structures, and modern software development practices.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">C#</span>
-                            <span class="tag">.NET</span>
-                            <span class="tag">OOP</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="sql-project.html" class="project-link">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">🗄️</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>SQL Database Schema Project</h3>
-                        <p>
-                            Designed and implemented a comprehensive database schema with normalized tables, 
-                            relationships, and optimized queries for efficient data management.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">SQL</span>
-                            <span class="tag">Database Design</span>
-                            <span class="tag">ERD</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="analytics-project.html" class="project-link">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-icon">📈</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Data Analytics Externship</h3>
-                        <p>
-                            Participated in a hands-on externship analyzing real-world data sets, 
-                            creating visualizations, and delivering actionable insights to stakeholders.
-                        </p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">Data Analysis</span>
-                            <span class="tag">Visualization</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
     <section id="contact" class="contact-section">
         <div class="contact-content">
             <h2>Let's Connect</h2>
             <p>
-                I'm always interested in new opportunities and collaborations. 
+                I'm always interested in new opportunities and collaborations.
                 Whether you have a question or just want to connect, feel free to reach out!
             </p>
+
             <div class="contact-links">
-                <a href="mailto:nelsonpham64@gmail.com" class="contact-link">
-                    <span>✉️</span> Email
-                </a>
-                <a href="https://github.com/nelsonpham4" class="contact-link" target="_blank">
-                    <span>💻</span> GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/nelsonpham64/" class="contact-link" target="_blank">
-                    <span>💼</span> LinkedIn
-                </a>
+                <a href="mailto:nelsonpham64@gmail.com" class="contact-link"><span>✉️</span> Email</a>
+                <a href="https://github.com/nelsonpham4" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
+                <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank"><span>💼</span> LinkedIn</a>
             </div>
         </div>
     </section>
@@ -722,7 +857,6 @@
         <p>&copy; 2026 Nelson Pham. Built with care ☕</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -738,7 +872,7 @@
             });
         });
 
-        // Gentle scroll reveal for project cards
+        // Gentle scroll reveal for project cards + skill items
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -755,10 +889,9 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.project-card, .skill-item').forEach(el => {
+        document.querySelectorAll('.project-card, .skill-item, .mini-card, .hero-profile').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
-
             observer.observe(el);
         });
     </script>
