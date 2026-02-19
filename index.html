@@ -65,7 +65,7 @@
             list-style: none;
         }
 
-        .nav-links a {
+        .nav-links a { n
             color: var(--color-text-dim);
             text-decoration: none;
             font-size: 1rem;
@@ -318,37 +318,43 @@
         }
 
         .about-content {
-            max-width: 900px;
-            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
-        .about-intro {
-            text-align: center;
-            margin-bottom: 3rem;
+        .about-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 3px solid var(--color-warm-gold);
         }
 
-        .about-intro h2 {
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-text h2 {
             font-family: var(--font-serif);
             font-size: 2.5rem;
             font-weight: 600;
             color: var(--color-text);
+            margin-bottom: 1.5rem;
         }
 
-        .about-text-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .about-column p {
+        .about-text p {
             color: var(--color-text-dim);
+            margin-bottom: 1.2rem;
             font-size: 1.05rem;
             line-height: 1.8;
-            margin-bottom: 1.2rem;
         }
 
-        .about-column .highlight {
+        .about-text .highlight {
             color: var(--color-warm-gold);
             font-weight: 600;
         }
@@ -507,9 +513,14 @@
                 padding: 3rem 2rem;
             }
 
-            .about-text-grid {
+            .about-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 3rem;
+            }
+
+            .about-image {
+                max-width: 300px;
+                margin: 0 auto;
             }
 
             .projects-grid {
@@ -640,57 +651,48 @@
     <section id="about">
         <div class="about-section">
             <div class="about-content">
-                
-                <div class="about-intro">
+                <div class="about-image">
+                    <!-- Replace this src with your actual image path -->
+                    <img src="profile.jpg" alt="Nelson Pham" onerror="this.style.display='none'">
+                </div>
+
+                <div class="about-text">
                     <h2>About Me</h2>
-                </div>
+                    <p>
+                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, 
+                        with a strong interest in technology and its applications in solving complex business problems.
+                    </p>
+                    <p>
+                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms. 
+                        Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
+                    </p>
+                    <p>
+                        I'm passionate about bridging the gap between data and decision-making, using analytics to 
+                        drive insights and create value. Thank you for taking the time to explore my work.
+                    </p>
 
-                <div class="about-text-grid">
-                    <div class="about-column">
-                        <p>
-                            Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, 
-                            with a strong interest in technology and its applications in solving complex business problems.
-                        </p>
-                        <p>
-                            This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms. 
-                            Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
-                        </p>
-                    </div>
-                    
-                    <div class="about-column">
-                        <p>
-                            I'm passionate about bridging the gap between data and decision-making, using analytics to 
-                            drive insights and create value.
-                        </p>
-                        <p>
-                            My work spans database design, software development, and data analysis—always with a focus
-                            on clean execution and practical solutions. Thank you for taking the time to explore my work.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="skills-section">
-                    <h3>Skills & Tools</h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <h4>Programming</h4>
-                            <p>C#, Python, SQL</p>
-                        </div>
-                        <div class="skill-item">
-                            <h4>Data Analytics</h4>
-                            <p>Excel, Tableau, Data Visualization</p>
-                        </div>
-                        <div class="skill-item">
-                            <h4>Database Management</h4>
-                            <p>SQL Server, Database Design, ERD</p>
-                        </div>
-                        <div class="skill-item">
-                            <h4>Business Tools</h4>
-                            <p>Microsoft Project, PowerPoint, Word</p>
+                    <div class="skills-section">
+                        <h3>Skills & Tools</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <h4>Programming</h4>
+                                <p>C#, Python, SQL</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Data Analytics</h4>
+                                <p>Excel, Tableau, Data Visualization</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Database Management</h4>
+                                <p>SQL Server, Database Design, ERD</p>
+                            </div>
+                            <div class="skill-item">
+                                <h4>Business Tools</h4>
+                                <p>Microsoft Project, PowerPoint, Word</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -703,7 +705,7 @@
                 Whether you have a question or just want to connect, feel free to reach out!
             </p>
             <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#98e1f7edeab6fdf5f9f1f4d8fde0f9f5e8f4fdb6fbf7f5" class="contact-link">
+                <a href="mailto:nelsonpham64@gmail.com" class="contact-link">
                     <span>✉️</span> Email
                 </a>
                 <a href="https://github.com/nelsonpham4" class="contact-link" target="_blank">
