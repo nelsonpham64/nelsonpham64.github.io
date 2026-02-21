@@ -17,7 +17,7 @@
             --color-text: #e8e8e8;
             --color-text-dim: #b0b0b0;
             --color-border: #3a3a3a;
-            
+
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Lato', sans-serif;
         }
@@ -208,22 +208,6 @@
             margin-top: 0.5rem;
         }
 
-        .image-placeholder {
-            width: 100%;
-            min-height: 300px;
-            background: var(--color-card);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 2rem 0;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-dim);
-            font-size: 1.1rem;
-            padding: 2rem;
-            text-align: center;
-        }
-
         .btn-group {
             display: flex;
             gap: 1rem;
@@ -269,6 +253,37 @@
             margin-top: 4rem;
         }
 
+        /* ✅ NEW: Image cards to make white-chart backgrounds look clean on dark theme */
+        .image-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 18px;
+            margin: 2rem 0;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #ffffff;            /* frame behind transparent/white areas */
+            padding: 14px;                  /* spacing so it doesn't touch edges */
+            border-radius: 12px;
+        }
+
+        .image-card .caption {
+            margin-top: 12px;
+            color: var(--color-text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .image-stack {
+            display: grid;
+            gap: 16px;
+        }
+
         @media (max-width: 768px) {
             .project-content {
                 padding: 3rem 4%;
@@ -280,6 +295,14 @@
 
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .image-card {
+                padding: 14px;
+            }
+
+            .image-card img {
+                padding: 10px;
             }
         }
     </style>
@@ -309,16 +332,16 @@
         <div class="section">
             <h2>Problem Statement</h2>
             <p>
-                Public health officials need to understand how different respiratory causes of death interact 
-                over time to improve preparedness and response planning. This analysis aimed to answer the 
-                research question: <span class="highlight">What relationships exist between COVID-19 deaths, 
+                Public health officials need to understand how different respiratory causes of death interact
+                over time to improve preparedness and response planning. This analysis aimed to answer the
+                research question: <span class="highlight">What relationships exist between COVID-19 deaths,
                 pneumonia deaths, influenza deaths, and total deaths over time in the United States?</span>
             </p>
         </div>
 
         <div class="section">
             <h2>Dataset Overview</h2>
-            
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">137,700</div>
@@ -350,11 +373,11 @@
 
             <h3>Data Cleaning & Preprocessing</h3>
             <p>
-                Performed end-to-end data cleaning and preprocessing in <span class="highlight">Google Colab</span>, 
-                standardizing multi-year U.S. climate station data, resolving missing and inconsistent values, 
+                Performed end-to-end data cleaning and preprocessing in <span class="highlight">Google Colab</span>,
+                standardizing multi-year U.S. climate station data, resolving missing and inconsistent values,
                 and producing an analysis-ready dataset.
             </p>
-            
+
             <div class="info-box">
                 <h4>Key Data Cleaning Steps</h4>
                 <ul>
@@ -368,32 +391,29 @@
 
             <h3>Exploratory Data Analysis (EDA)</h3>
             <p>
-                After cleaning and structuring the dataset, I conducted exploratory data analysis to examine 
-                patterns in respiratory-related mortality across time. The analysis focused on understanding 
-                overall trends, distributions, and fluctuations in reported deaths for different respiratory 
+                After cleaning and structuring the dataset, I conducted exploratory data analysis to examine
+                patterns in respiratory-related mortality across time. The analysis focused on understanding
+                overall trends, distributions, and fluctuations in reported deaths for different respiratory
                 causes.
             </p>
             <p>
-                Time-series visualizations were used to identify periods of elevated mortality, while 
-                distribution plots helped highlight the frequency and magnitude of death spikes across 
+                Time-series visualizations were used to identify periods of elevated mortality, while
+                distribution plots helped highlight the frequency and magnitude of death spikes across
                 reporting periods.
             </p>
+
+            <!-- ✅ FIXED: swapped placeholder container with proper image card -->
+            <div class="image-card">
+                <div class="image-stack">
+                    <img src="TimeSeries.png" alt="Time series mortality trends">
+                    <img src="Correlation.png" alt="Correlation heatmap">
+                </div>
+            </div>
         </div>
 
-<div class="image-placeholder">
-
-    <img src="TimeSeries.png" 
-         alt="Time series mortality trends"
-         style="width:100%; border-radius:10px; margin-bottom:20px;">
-
-    <img src="Correlation.png" 
-         alt="Correlation heatmap"
-         style="width:100%; border-radius:10px;">
-
-</div>
         <div class="section">
             <h2>Tools & Technologies</h2>
-            
+
             <div class="info-box">
                 <h4>Python Data Analysis Stack</h4>
                 <ul>
@@ -418,38 +438,35 @@
 
         <div class="section">
             <h2>Visualization & Dashboard</h2>
-            
+
             <h3>Claude AI Interactive Dashboard</h3>
             <p>
-                This externship required the use of Claude AI to design and generate interactive 
-                visualizations. The dashboard presents the final visualization artifact created using 
+                This externship required the use of Claude AI to design and generate interactive
+                visualizations. The dashboard presents the final visualization artifact created using
                 Claude, based on insights derived from my cleaned and analyzed dataset.
             </p>
 
             <h3>Power BI Exploration</h3>
             <p>
-                During the externship, I independently explored <span class="highlight">Power BI</span> 
-                as a learning exercise. The dashboard represents a beginner-level Power BI visualization 
+                During the externship, I independently explored <span class="highlight">Power BI</span>
+                as a learning exercise. The dashboard represents a beginner-level Power BI visualization
                 created to practice translating analytical insights into an interactive format.
             </p>
+
+            <!-- ✅ FIXED: swapped placeholder container with proper image card + caption -->
+            <div class="image-card">
+                <img src="PowerBI.png" alt="Power BI dashboard showing respiratory mortality trends">
+                <p class="caption">
+                    Interactive Power BI dashboard used to visualize weekly respiratory mortality trends and compare COVID-19,
+                    pneumonia, and influenza deaths over time.
+                </p>
+            </div>
         </div>
-
-       <div class="image-placeholder">
-
-    <img src="PowerBI.png"
-         alt="Power BI dashboard showing respiratory mortality trends"
-         style="width:100%; border-radius:10px; margin-bottom:10px;">
-
-    <p style="color:#b0b0b0; font-size:0.95rem;">
-        Interactive Power BI dashboard used to visualize weekly respiratory mortality trends and compare COVID-19, pneumonia, and influenza deaths over time.
-    </p>
-
-</div>
 
         <div class="section">
             <h2>Key Findings</h2>
             <p>
-                The analysis revealed important temporal relationships between different respiratory mortality 
+                The analysis revealed important temporal relationships between different respiratory mortality
                 causes:
             </p>
             <ul>
@@ -474,9 +491,9 @@
                 <li><span class="highlight">Public Health Context:</span> Understood how data analysis supports healthcare decision-making</li>
             </ul>
             <p>
-                Working with real CDC mortality data taught me the importance of careful data validation 
-                and the responsibility that comes with analyzing public health information. The project 
-                strengthened both my technical skills and my ability to derive actionable insights from 
+                Working with real CDC mortality data taught me the importance of careful data validation
+                and the responsibility that comes with analyzing public health information. The project
+                strengthened both my technical skills and my ability to derive actionable insights from
                 complex datasets.
             </p>
         </div>
