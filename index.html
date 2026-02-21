@@ -70,10 +70,70 @@
             font-size: 1rem;
             transition: color 0.3s ease;
             font-weight: 400;
+            position: relative;
+            padding-bottom: 4px;
         }
 
-        .nav-links a:hover {
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-warm-gold);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--color-warm-gold);
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Resume button in nav */
+        .nav-resume {
+            padding: 0.55rem 1.3rem;
+            background: transparent;
+            color: var(--color-warm-gold);
+            border: 1.5px solid var(--color-warm-gold);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-resume:hover {
+            background: var(--color-warm-gold);
+            color: #1a1a1a;
+            box-shadow: 0 4px 14px rgba(212, 165, 116, 0.35);
+        }
+
+        /* Resume button in hero */
+        .btn-resume {
+            background: transparent;
+            color: var(--color-text-dim);
+            border: 1.5px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .btn-resume:hover {
+            border-color: var(--color-warm-gold);
+            color: var(--color-warm-gold);
+            transform: translateY(-2px);
         }
 
         .hero {
@@ -685,6 +745,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <a href="Nelson Pham - Analytics Resume.pdf" download class="nav-resume">⬇ Resume</a>
     </nav>
 
     <section class="hero">
@@ -700,13 +761,14 @@
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View My Projects</a>
                     <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                    <a href="resume.pdf" download class="btn btn-resume">⬇ Resume</a>
                 </div>
             </div>
 
             <div class="hero-side">
                 <div class="hero-profile">
                     <div class="hero-profile-img">
-                        <div class="placeholder-avatar">👤</div>
+                        <div class="profile.jpg">👤</div>
                     </div>
                 </div>
 
@@ -823,7 +885,7 @@
                     <p>I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, with a strong interest in technology and its applications in solving complex business problems.</p>
                 </div>
                 <div class="about-bio-card">
-                    <p>I'm passionate about applying my analytics skills in professional settings by using data to tell stories, surface insights, and drive decisions. More exciting projects are on the way!</p>
+                    <p>I'm passionate about applying my analytics skills in professional settings — using data to tell stories, surface insights, and drive decisions. More exciting projects are on the way!</p>
                 </div>
             </div>
 
@@ -886,7 +948,28 @@
     </footer>
 
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Active nav highlighting on scroll
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        const sections = document.querySelectorAll('section[id]');
+
+        const activateNav = () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 140;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', activateNav);
+        activateNav();
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
