@@ -38,7 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
         nav {
             padding: 2rem 5%;
             display: flex;
@@ -47,8 +46,6 @@
             position: fixed;
             top: 0;
             width: 100%;
-
-            /* FIX: solid background prevents the hero glow showing through */
             background: rgba(26, 26, 26, 0.98);
             z-index: 1000;
             border-bottom: 1px solid var(--color-border);
@@ -67,7 +64,6 @@
             list-style: none;
         }
 
-        /* FIX: removed the stray 'n' that broke your CSS */
         .nav-links a {
             color: var(--color-text-dim);
             text-decoration: none;
@@ -80,7 +76,6 @@
             color: var(--color-warm-gold);
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -101,7 +96,6 @@
             pointer-events: none;
         }
 
-        /* NEW: modern hero layout to fill empty space */
         .hero-layout {
             width: 100%;
             display: grid;
@@ -194,7 +188,6 @@
             transform: translateY(-2px);
         }
 
-        /* NEW: Right-side hero panel */
         .hero-side {
             display: grid;
             gap: 1.25rem;
@@ -217,6 +210,14 @@
             overflow: hidden;
             border: 2px solid rgba(212, 165, 116, 0.55);
             background: var(--color-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-profile-img .placeholder-avatar {
+            font-size: 5rem;
+            opacity: 0.4;
         }
 
         .hero-profile-img img {
@@ -272,13 +273,10 @@
             color: var(--color-gold-light);
         }
 
-        /* Section Styles */
         section {
             padding: 5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
-
-            /* FIX: anchor scrolling under fixed nav */
             scroll-margin-top: 120px;
         }
 
@@ -291,7 +289,6 @@
             text-align: center;
         }
 
-        /* Projects Section */
         .projects-intro {
             text-align: center;
             max-width: 700px;
@@ -399,102 +396,171 @@
             border: 1px solid rgba(212, 165, 116, 0.3);
         }
 
-        /* About Section (kept as you had it, and moved to bottom) */
+        /* ── About Section ── */
         .about-section {
-            background: var(--color-surface);
-            border-radius: 30px;
-            padding: 5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--color-border);
+            background: transparent;
+            padding: 0;
+            border: none;
+            box-shadow: none;
         }
 
-        .about-content {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 4rem;
-            align-items: start;
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+            justify-content: center;
         }
 
-        .about-image {
-            width: 100%;
-            aspect-ratio: 3/4;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 3px solid var(--color-warm-gold);
+        .about-header-line {
+            flex: 1;
+            max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-warm-gold));
         }
 
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .about-header-line.right {
+            background: linear-gradient(to left, transparent, var(--color-warm-gold));
         }
 
-        .about-text h2 {
+        .about-header h2 {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 600;
             color: var(--color-text);
-            margin-bottom: 1.5rem;
+            white-space: nowrap;
         }
 
-        .about-text p {
+        /* bio + stat strip */
+        .about-bio-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-bio-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-bio-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(to bottom, var(--color-warm-gold), var(--color-gold-dark));
+            border-radius: 4px 0 0 4px;
+        }
+
+        .about-bio-card p {
             color: var(--color-text-dim);
-            margin-bottom: 1.2rem;
             font-size: 1.05rem;
-            line-height: 1.8;
+            line-height: 1.85;
+            margin: 0;
         }
 
-        .about-text .highlight {
+        .about-bio-card .highlight {
             color: var(--color-warm-gold);
             font-weight: 600;
         }
 
-        .skills-section {
-            margin-top: 3rem;
+        /* stat strip */
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
         }
 
-        .skills-section h3 {
+        .stat-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 1.4rem 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(212, 165, 116, 0.5);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1rem;
+            color: var(--color-warm-gold);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+            line-height: 1.4;
+        }
+
+        /* skills grid */
+        .about-skills-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
             color: var(--color-text);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            padding-left: 0.25rem;
         }
 
         .skills-list {
             display: grid;
-            gap: 1.2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
         .skill-item {
             background: var(--color-card);
-            padding: 1.3rem;
-            border-radius: 15px;
-            border-left: 4px solid var(--color-warm-gold);
-            transition: all 0.3s ease;
+            padding: 1.2rem 1.4rem;
+            border-radius: 16px;
             border: 1px solid var(--color-border);
-            border-left: 4px solid var(--color-warm-gold);
+            border-left: 3px solid var(--color-warm-gold);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
         }
 
         .skill-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.2);
+            transform: translateX(4px);
+            box-shadow: 0 5px 18px rgba(212, 165, 116, 0.15);
             background: var(--color-surface);
+            border-color: rgba(212, 165, 116, 0.5);
+            border-left-color: var(--color-warm-gold);
         }
 
         .skill-item h4 {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: var(--color-warm-gold);
-            margin-bottom: 0.4rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         .skill-item p {
             color: var(--color-text-dim);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin: 0;
         }
 
-        /* Contact Section */
         .contact-section {
             text-align: center;
         }
@@ -549,7 +615,6 @@
             border-color: var(--color-warm-gold);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 3rem 5%;
@@ -558,7 +623,6 @@
             border-top: 1px solid var(--color-border);
         }
 
-        /* Decorative Elements */
         .decorative-glow {
             position: fixed;
             width: 500px;
@@ -582,71 +646,30 @@
             left: -200px;
         }
 
-        /* Responsive */
         @media (max-width: 900px) {
             .hero-layout {
                 grid-template-columns: 1fr;
                 gap: 2rem;
                 padding-top: 4rem;
             }
-
             .hero-side {
                 max-width: 420px;
             }
         }
 
         @media (max-width: 768px) {
-            nav {
-                padding: 1.5rem 4%;
-            }
-
-            .nav-links {
-                gap: 1.5rem;
-            }
-
-            .hero {
-                padding: 0 4%;
-            }
-
-            section {
-                padding: 3rem 4%;
-            }
-
-            .about-section {
-                padding: 3rem 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .about-image {
-                max-width: 300px;
-                margin: 0 auto;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .contact-links {
-                flex-direction: column;
-            }
-
-            .contact-link {
-                justify-content: center;
-            }
+            nav { padding: 1.5rem 4%; }
+            .nav-links { gap: 1.5rem; }
+            .hero { padding: 0 4%; }
+            section { padding: 3rem 4%; }
+            .about-bio-row { grid-template-columns: 1fr; }
+            .about-stats { grid-template-columns: 1fr; }
+            .skills-list { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: flex-start; }
+            .btn { width: 100%; text-align: center; }
+            .contact-links { flex-direction: column; }
+            .contact-link { justify-content: center; }
         }
     </style>
 </head>
@@ -666,8 +689,6 @@
 
     <section class="hero">
         <div class="hero-layout">
-
-            <!-- LEFT: your original hero content -->
             <div class="hero-content">
                 <p class="hero-greeting">👋 Hi there, I'm</p>
                 <h1>Nelson Pham</h1>
@@ -682,12 +703,10 @@
                 </div>
             </div>
 
-            <!-- RIGHT: fills the empty space -->
             <div class="hero-side">
                 <div class="hero-profile">
                     <div class="hero-profile-img">
-                        <!-- Put your real image here -->
-                        <img src="profile.jpg" alt="Nelson Pham" onerror="this.style.display='none'">
+                        <div class="placeholder-avatar">👤</div>
                     </div>
                 </div>
 
@@ -697,7 +716,7 @@
                         <ul class="mini-list">
                             <li>✅ Data-driven project work (dashboards + analysis)</li>
                             <li>✅ Software projects (C#, SQL, Python, analytics)</li>
-                            <li>✅ Strong focus on problem-solving, leadership, and data-driven decision making </li>
+                            <li>✅ Strong focus on problem-solving, leadership, and data-driven decision making</li>
                         </ul>
                     </div>
 
@@ -714,19 +733,18 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="projects">
         <h2 class="section-title">Project Portfolio</h2>
         <p class="projects-intro">
-            A selection of projects I've worked on, utilizing various tools and platforms. Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results. 
+            A selection of projects I've worked on, utilizing various tools and platforms. Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
             This portfolio is actively evolving, with new and more advanced projects currently in progress as I continue strengthening my skills with analytics and software development.
         </p>
 
         <div class="projects-grid">
-            <a href="csharp-project.html" class="project-link">
+            <a href="#" class="project-link">
                 <div class="project-card">
                     <div class="project-image">
                         <div class="project-icon">💻</div>
@@ -746,7 +764,7 @@
                 </div>
             </a>
 
-            <a href="sql-project.html" class="project-link">
+            <a href="#" class="project-link">
                 <div class="project-card">
                     <div class="project-image">
                         <div class="project-icon">🗄️</div>
@@ -767,7 +785,7 @@
                 </div>
             </a>
 
-            <a href="analytics-project.html" class="project-link">
+            <a href="#" class="project-link">
                 <div class="project-card">
                     <div class="project-image">
                         <div class="project-icon">📈</div>
@@ -790,57 +808,71 @@
         </div>
     </section>
 
-    <!-- About back at bottom (original placement) -->
     <section id="about">
         <div class="about-section">
-            <div class="about-content">
-               
 
-                <div class="about-text">
-                    <h2>About Me</h2>
-                    <p>
-                        Hello! I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>,
-                        with a strong interest in technology and its applications in solving complex business problems.
-                    </p>
-                    <p>
-                        This portfolio showcases a selection of projects I've worked on, utilizing various tools and platforms.
-                        Each project reflects my approach to problem-solving, data exploration, and delivering meaningful results.
-                    </p>
-                    <p>
-                        I'm passionate about the projects I've worked on that have used my analytics skills in a professional setting. 
-                        Thank you for taking the time to explore my portfolio! More to come!!
-                    </p>
+            <div class="about-header">
+                <div class="about-header-line"></div>
+                <h2>About Me</h2>
+                <div class="about-header-line right"></div>
+            </div>
 
-                    <div class="skills-section">
-                        <h3>Skills & Tools</h3>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <h4>Programming</h4>
-                                <p>C#, Python, SQL</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Data Analytics</h4>
-                                <p>Excel, SPSS, Tableau, PowerBI</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Database Management</h4>
-                                <p>SQL Server, Database Design, ERD</p>
-                            </div>
-                            <div class="skill-item">
-                                <h4>Business Tools</h4>
-                                <p>Microsoft Project, Microsoft Visio, PowerPoint, Word, SAP Analytics Cloud (SAC), SAP ERP (S/4HANA)</p>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Bio cards -->
+            <div class="about-bio-row">
+                <div class="about-bio-card">
+                    <p>I'm a <span class="highlight">Business Analytics student at California State University, Fullerton</span>, with a strong interest in technology and its applications in solving complex business problems.</p>
+                </div>
+                <div class="about-bio-card">
+                    <p>I'm passionate about applying my analytics skills in professional settings — using data to tell stories, surface insights, and drive decisions. More exciting projects are on the way!</p>
                 </div>
             </div>
+
+            <!-- Quick-glance stat strip -->
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🎓</div>
+                    <div class="stat-label">Education</div>
+                    <div class="stat-value">B.S. Business Analytics<br>Cal State Fullerton</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-label">Focus Areas</div>
+                    <div class="stat-value">Data Analysis · Visualization<br>Software Development</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🚀</div>
+                    <div class="stat-label">Experience</div>
+                    <div class="stat-value">Analytics Externship<br>Academic & Personal Projects</div>
+                </div>
+            </div>
+
+            <!-- Skills grid -->
+            <p class="about-skills-title">Skills & Tools</p>
+            <div class="skills-list">
+                <div class="skill-item">
+                    <h4>Programming</h4>
+                    <p>C#, Python, SQL</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Data Analytics</h4>
+                    <p>Excel, SPSS, Tableau, PowerBI</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Database Management</h4>
+                    <p>SQL Server, Database Design, ERD</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Business Tools</h4>
+                    <p>Microsoft Project, Visio, SAP Analytics Cloud (SAC), SAP ERP (S/4HANA)</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <section id="contact" class="contact-section">
         <div class="contact-content">
             <h2>Let's Connect</h2>
-
             <div class="contact-links">
                 <a href="mailto:nelsonpham64@gmail.com" class="contact-link"><span>✉️</span> Email</a>
                 <a href="https://github.com/nelsonpham64" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
@@ -854,26 +886,17 @@
     </footer>
 
     <script>
-        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Gentle scroll reveal for project cards + skill items
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
@@ -885,7 +908,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.project-card, .skill-item, .mini-card, .hero-profile').forEach(el => {
+        document.querySelectorAll('.project-card, .skill-item, .mini-card, .hero-profile, .about-bio-card, .stat-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             observer.observe(el);
