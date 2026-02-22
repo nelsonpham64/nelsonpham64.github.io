@@ -915,6 +915,27 @@
                 </div>
             </a>
 
+            <a href="https://github.com/nelsonpham64/covid19-global-data-analysis/tree/main" class="project-link" target="_blank">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-icon">🌍</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Global COVID-19 Impact Analysis</h3>
+                        <p>
+                            Analyzed global COVID-19 data to evaluate mortality impact, infection rates, and geographic differences in pandemic outcomes using SQL and Tableau.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">SQL</span>
+                            <span class="tag">Tableau</span>
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Excel</span>
+                        </div>
+                        <div class="project-cta">View on GitHub <span class="project-cta-arrow">→</span></div>
+                    </div>
+                </div>
+            </a>
+
             <a href="analytics-project.html" class="project-link">
                 <div class="project-card">
                     <div class="project-image">
@@ -1006,7 +1027,7 @@
         <div class="contact-content">
             <h2>Let's Connect</h2>
             <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#7c1219100f13120c141d114a483c1b111d1510521f1311" class="contact-link"><span>✉️</span> Email</a>
+                <a href="mailto:nelsonpham64@gmail.com" class="contact-link"><span>✉️</span> Email</a>
                 <a href="https://github.com/nelsonpham64" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
                 <a href="https://www.linkedin.com/in/nelsonpham64/" class="contact-link" target="_blank"><span>💼</span> LinkedIn</a>
             </div>
@@ -1017,7 +1038,7 @@
         <p>&copy; 2026 Nelson Pham. Built with care ☕</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Active nav highlighting on scroll
         const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
         const sections = document.querySelectorAll('section[id]');
@@ -1040,6 +1061,8 @@
 
         window.addEventListener('scroll', activateNav);
         activateNav();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -1062,4 +1085,11 @@
         }, observerOptions);
 
         document.querySelectorAll('.project-card, .skill-item, .mini-card, .hero-profile, .about-bio-card, .stat-card').forEach(el => {
-            
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
