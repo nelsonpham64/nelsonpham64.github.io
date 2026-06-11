@@ -156,17 +156,73 @@ img {
 }
 
 .hero {
+  position: relative;
   min-height: calc(100vh - 74px);
   display: grid;
   align-items: center;
   padding: 74px 0 54px;
+  overflow: hidden;
 }
 
 .hero-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 0.93fr) minmax(360px, 0.72fr);
   gap: clamp(34px, 7vw, 88px);
   align-items: center;
+}
+
+.analytics-signal {
+  position: absolute;
+  right: -4vw;
+  bottom: 2vh;
+  left: -4vw;
+  z-index: 0;
+  height: min(32vh, 250px);
+  pointer-events: none;
+  opacity: 0.48;
+}
+
+.analytics-signal svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.signal-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signal-base {
+  stroke: rgba(77, 111, 145, 0.18);
+  stroke-width: 2;
+}
+
+.signal-flow {
+  stroke: var(--teal);
+  stroke-width: 3;
+  stroke-dasharray: 44 780;
+  animation: signal-sweep 7.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 18px rgba(45, 145, 141, 0.22));
+}
+
+.signal-points circle {
+  fill: var(--gold);
+  opacity: 0.76;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: signal-pulse 3.8s ease-in-out infinite;
+}
+
+.signal-points circle:nth-child(2) {
+  animation-delay: 520ms;
+}
+
+.signal-points circle:nth-child(3) {
+  animation-delay: 1040ms;
 }
 
 .eyebrow {
@@ -480,11 +536,11 @@ h3 {
   margin-top: 34px;
   padding: 98px 0 108px;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    #191924;
+    linear-gradient(90deg, rgba(77, 111, 145, 0.055) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(77, 111, 145, 0.045) 1px, transparent 1px),
+    var(--bg);
   background-size: 42px 42px;
-  color: #f7f5ee;
+  color: var(--ink);
 }
 
 .projects-section .section-heading {
@@ -494,22 +550,22 @@ h3 {
 }
 
 .projects-section .section-kicker {
-  color: #aeb5c4;
+  color: var(--gold);
 }
 
 .projects-section .section-heading h2 {
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: clamp(4rem, 9vw, 6.9rem);
   font-weight: 820;
   line-height: 0.9;
-  text-shadow: 0 0 26px rgba(199, 146, 63, 0.18);
+  text-shadow: none;
 }
 
 .projects-section .section-heading p {
   max-width: 760px;
   margin-top: 26px;
-  color: #a8adba;
+  color: var(--muted);
   font-size: 1.08rem;
   line-height: 1.72;
 }
@@ -1096,6 +1152,31 @@ h3 {
   }
 }
 
+@keyframes signal-sweep {
+  0% {
+    stroke-dashoffset: 820;
+  }
+  48%,
+  58% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -820;
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.95;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1191,6 +1272,12 @@ h3 {
 
   .hero-visual {
     min-height: 430px;
+  }
+
+  .analytics-signal {
+    bottom: 38%;
+    height: 150px;
+    opacity: 0.28;
   }
 
   .portrait-card {
