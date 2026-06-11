@@ -1,427 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Database Schema Project - Nelson Pham</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-bg: #1a1a1a;
-            --color-surface: #242424;
-            --color-card: #2d2d2d;
-            --color-warm-gold: #d4a574;
-            --color-gold-light: #e8c4a0;
-            --color-text: #e8e8e8;
-            --color-text-dim: #b0b0b0;
-            --color-border: #3a3a3a;
-            
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Lato', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.7;
-        }
-
-        nav {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .logo {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--color-warm-gold);
-            text-decoration: none;
-        }
-
-        .back-link {
-            color: var(--color-text-dim);
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: var(--color-warm-gold);
-        }
-
-        .project-hero {
-            padding: 6rem 5% 4rem;
-            text-align: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
-        }
-
-        .project-hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--color-text);
-        }
-
-        .project-hero .subtitle {
-            font-size: 1.3rem;
-            color: var(--color-warm-gold);
-            margin-bottom: 2rem;
-        }
-
-        .project-tags {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 0.5rem 1.2rem;
-            background: rgba(212, 165, 116, 0.15);
-            color: var(--color-gold-light);
-            border-radius: 25px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(212, 165, 116, 0.3);
-        }
-
-        .project-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 4rem 5%;
-        }
-
-        .section {
-            margin-bottom: 4rem;
-        }
-
-        .section h2 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--color-warm-gold);
-            margin-bottom: 1.5rem;
-        }
-
-        .section h3 {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--color-gold-light);
-            margin-bottom: 1rem;
-            margin-top: 2rem;
-        }
-
-        .section p {
-            color: var(--color-text-dim);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .section ul {
-            color: var(--color-text-dim);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-left: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .section li {
-            margin-bottom: 0.8rem;
-        }
-
-        .highlight {
-            color: var(--color-warm-gold);
-            font-weight: 600;
-        }
-
-        .entity-card {
-            background: var(--color-card);
-            border: 1px solid var(--color-border);
-            border-left: 4px solid var(--color-warm-gold);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 10px;
-        }
-
-        .entity-card h4 {
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
-            color: var(--color-warm-gold);
-            margin-bottom: 1rem;
-        }
-
-        .entity-card p {
-            color: var(--color-text-dim);
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            min-height: 300px;
-            background: var(--color-card);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 2rem 0;
-            border: 1px solid var(--color-border);
-            color: var(--color-text-dim);
-            font-size: 1.1rem;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--color-warm-gold);
-            color: #1a1a1a;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-gold-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color-warm-gold);
-            border: 2px solid var(--color-warm-gold);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-warm-gold);
-            color: #1a1a1a;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem 5%;
-            color: var(--color-text-dim);
-            border-top: 1px solid var(--color-border);
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .project-content {
-                padding: 3rem 4%;
-            }
-
-            .entity-card {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Library Operations Analytics Database case study by Nelson Pham.">
+  <title>Library Operations Analytics Database - Nelson Pham</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,650;8..60,720&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">Nelson Pham</a>
-        <a href="index.html#projects" class="back-link">← Back to Portfolio</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-nav">
+    <nav class="nav-shell" aria-label="Primary navigation">
+      <a class="brand" href="index.html">Nelson Pham</a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a class="nav-resume" href="Nelson%20Pham%20-%20Analytics%20Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
     </nav>
+  </header>
 
-    <div class="project-hero">
-        <h1>SQL Database Schema Project</h1>
-        <p class="subtitle">ISDS 402 - Database Management</p>
-        <div class="project-tags">
-            <span class="tag">SQL</span>
-            <span class="tag">Database Design</span>
-            <span class="tag">ERD</span>
-            <span class="tag">Normalization</span>
+  <main>
+    <section class="project-hero">
+      <div class="page-shell reveal">
+        <p class="project-kicker">Database Design</p>
+        <h1 class="project-title">Library Operations Analytics Database</h1>
+        <p class="project-summary">A relational database project focused on organizing library operations data into a clean schema that supports efficient querying, reporting, and analysis.</p>
+
+        <div class="project-meta">
+          <div class="meta-card">
+            <span>Role</span>
+            <strong>Database designer</strong>
+          </div>
+          <div class="meta-card">
+            <span>Tools</span>
+            <strong>SQL, MySQL Workbench, ERD</strong>
+          </div>
+          <div class="meta-card">
+            <span>Focus</span>
+            <strong>Normalization and reporting</strong>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <article class="article">
+      <section class="content-section reveal">
+        <h2>Project Overview</h2>
+        <p>This project was built around a library operations scenario with members, books, loans, staff, branches, and related transactions. The goal was to model the business process clearly enough that the database could support day-to-day operations and analytical questions.</p>
+        <p>The final design emphasizes normalized tables, consistent relationships, and a structure that keeps operational records clean while making reporting easier.</p>
+        <div class="tag-row">
+          <span class="tag">SQL</span>
+          <span class="tag">Database Design</span>
+          <span class="tag">ERD</span>
+          <span class="tag">MySQL Workbench</span>
+        </div>
+      </section>
+
+      <section class="content-section reveal">
+        <h2>Schema Design</h2>
+        <p>The schema separates core entities so each table has a clear purpose. Relationships connect operational activity back to members, books, branches, and employees.</p>
+        <figure class="image-frame">
+          <img src="Visuals/ERTable.png" alt="Entity relationship diagram for the library operations database">
+          <figcaption>Entity relationship diagram used to plan the library operations database.</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-section reveal">
+        <h2>Implementation Highlights</h2>
+        <div class="two-column">
+          <div class="callout">
+            <h3>Normalized Structure</h3>
+            <p>Separated major concepts into focused tables to reduce redundancy and make the data easier to maintain.</p>
+          </div>
+          <div class="callout">
+            <h3>Relationship Mapping</h3>
+            <p>Used primary and foreign keys to connect the flow of loans, members, books, branches, and staff.</p>
+          </div>
+          <div class="callout">
+            <h3>Query Planning</h3>
+            <p>Designed with common reporting questions in mind, including inventory, loan activity, and member usage.</p>
+          </div>
+          <div class="callout">
+            <h3>Operational Context</h3>
+            <p>Modeled the database around realistic library workflows rather than isolated technical tables.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section reveal">
+        <h2>Database Workspace</h2>
+        <p>The schema was implemented and reviewed in MySQL Workbench to confirm the table structure and relationships.</p>
+        <figure class="image-frame">
+          <img src="Visuals/MockUp.png" alt="MySQL Workbench database schema screenshot">
+          <figcaption>Database schema view from the project workspace.</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-section reveal">
+        <h2>What I Learned</h2>
+        <ul>
+          <li>How to translate a business process into a relational database structure.</li>
+          <li>Why normalization matters for accuracy, maintenance, and reporting.</li>
+          <li>How ERDs help communicate database logic before implementation.</li>
+          <li>How to think about downstream questions while designing upstream tables.</li>
+        </ul>
+      </section>
+
+      <div class="project-actions reveal">
+        <a class="button primary" href="index.html#work">Back to Work</a>
+        <a class="button" href="Nelson%20Pham%20-%20Analytics%20Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">
+      <span>&copy; 2026 Nelson Pham</span>
+      <span>Library Operations Analytics Database</span>
     </div>
+  </footer>
 
-    <div class="project-content">
-        <div class="section">
-            <h2>Project Overview</h2>
-            <p>
-                For this project, we designed a new relational database structured around five core entities: 
-                <span class="highlight">ACCOUNT</span>, <span class="highlight">BOOK</span>, 
-                <span class="highlight">CHECKOUT</span>, <span class="highlight">TRANSACTION</span>, and 
-                <span class="highlight">EMPLOYEE</span>.
-            </p>
-            <p>
-                This system is designed to improve data organization, reduce redundancy, and streamline 
-                routine tasks such as inventory updates and checkout verification. The schema follows 
-                proper normalization principles and includes comprehensive constraints, indexes, and 
-                foreign key relationships.
-            </p>
-        </div>
-
-       <div class="image-placeholder">
-    <img src="Visuals/ERTable.png" alt="Entity Relationship Diagram" style="width:100%; border-radius:10px;">
-</div>
-
-        <div class="section">
-            <h2>Database Entities</h2>
-            
-            <div class="entity-card">
-                <h4>ACCOUNT Table</h4>
-                <p>
-                    Stores user account information including credentials, contact details, and account status. 
-                    Implements primary key constraints and proper indexing for efficient queries.
-                </p>
-                <ul>
-                    <li><strong>Primary Key:</strong> Account_ID</li>
-                    <li><strong>Key Fields:</strong> Username, Email, Phone, Registration_Date</li>
-                    <li><strong>Indexes:</strong> Email, Username for fast lookups</li>
-                </ul>
-            </div>
-
-            <div class="entity-card">
-                <h4>BOOK Table</h4>
-                <p>
-                    Contains comprehensive book information including ISBN, title, author relationships, 
-                    genre, publication details, and inventory quantities.
-                </p>
-                <ul>
-                    <li><strong>Primary Key:</strong> Book_ID</li>
-                    <li><strong>Foreign Key:</strong> Author_ID (references AUTHOR table)</li>
-                    <li><strong>Key Fields:</strong> ISBN, Title, Genre, Quantity_Available</li>
-                    <li><strong>Indexes:</strong> ISBN, Title, Author_ID for search optimization</li>
-                </ul>
-            </div>
-
-            <div class="entity-card">
-                <h4>CHECKOUT Table</h4>
-                <p>
-                    Manages the checkout process, tracking which books are borrowed by which accounts, 
-                    along with due dates and return status.
-                </p>
-                <ul>
-                    <li><strong>Primary Key:</strong> Checkout_ID</li>
-                    <li><strong>Foreign Keys:</strong> Account_ID, Book_ID</li>
-                    <li><strong>Key Fields:</strong> Checkout_Date, Due_Date, Return_Date, Status</li>
-                    <li><strong>Indexes:</strong> Account_ID, Book_ID, Due_Date</li>
-                </ul>
-            </div>
-
-            <div class="entity-card">
-                <h4>EMPLOYEE Table</h4>
-                <p>
-                    Stores employee information for staff managing the system, including role assignments 
-                    and contact information.
-                </p>
-                <ul>
-                    <li><strong>Primary Key:</strong> Employee_ID</li>
-                    <li><strong>Key Fields:</strong> Name, Role, Email, Hire_Date</li>
-                    <li><strong>Indexes:</strong> Email for quick staff lookups</li>
-                </ul>
-            </div>
-
-            <div class="entity-card">
-                <h4>AUTHOR Table</h4>
-                <p>
-                    Maintains author information separate from books to support many-to-many relationships 
-                    and reduce data redundancy.
-                </p>
-                <ul>
-                    <li><strong>Primary Key:</strong> Author_ID</li>
-                    <li><strong>Key Fields:</strong> First_Name, Last_Name, Biography</li>
-                    <li><strong>Indexes:</strong> Last_Name, First_Name for author searches</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Key Design Features</h2>
-            <ul>
-                <li>
-                    <span class="highlight">Normalization:</span> Database follows Third Normal Form (3NF) 
-                    to eliminate data redundancy and ensure data integrity
-                </li>
-                <li>
-                    <span class="highlight">Referential Integrity:</span> Foreign key constraints maintain 
-                    relationships between tables and prevent orphaned records
-                </li>
-                <li>
-                    <span class="highlight">Performance Optimization:</span> Strategic indexes on frequently 
-                    queried columns for fast data retrieval
-                </li>
-                <li>
-                    <span class="highlight">Data Constraints:</span> NOT NULL constraints, primary keys, and 
-                    check constraints ensure data quality
-                </li>
-                <li>
-                    <span class="highlight">Mock Data:</span> Populated tables with realistic test data to 
-                    validate schema design
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Technical Implementation</h2>
-            <p>
-                The database was implemented using SQL Server with careful attention to:
-            </p>
-            <ul>
-                <li>Primary key and foreign key constraint definitions</li>
-                <li>Index creation for performance optimization</li>
-                <li>NOT NULL constraints for data integrity</li>
-                <li>Proper data type selection for each field</li>
-                <li>Relationship mapping between entities</li>
-            </ul>
-        </div>
-
-        <div class="image-placeholder">
-    <img src="Visuals/MockUp.png" alt="Database Schema Screenshot" style="width:100%; border-radius:10px;">
-</div>
-
-        <div class="section">
-            <h2>What I Learned</h2>
-            <p>
-                This project provided hands-on experience with professional database design practices. 
-                I gained a deep understanding of:
-            </p>
-            <ul>
-                <li>How to properly normalize database schemas to reduce redundancy</li>
-                <li>The importance of indexes in query performance optimization</li>
-                <li>Best practices for maintaining referential integrity through foreign keys</li>
-                <li>How to design scalable database systems that can grow with business needs</li>
-                <li>The relationship between database design and application performance</li>
-            </ul>
-            <p>
-                The experience of moving from conceptual design to physical implementation taught me 
-                how to balance theoretical best practices with real-world constraints and requirements.
-            </p>
-        </div>
-
-        <div class="btn-group">
-            <a href="index.html#projects" class="btn btn-secondary">← Back to Projects</a>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Nelson Pham. Built with care ☕</p>
-    </footer>
+  <script src="script.js"></script>
 </body>
 </html>
