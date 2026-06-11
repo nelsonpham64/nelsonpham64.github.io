@@ -533,6 +533,7 @@ h3 {
 }
 
 .projects-section {
+  position: relative;
   margin-top: 34px;
   padding: 98px 0 108px;
   background:
@@ -541,9 +542,22 @@ h3 {
     var(--bg);
   background-size: 42px 42px;
   color: var(--ink);
+  overflow: hidden;
+}
+
+.projects-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(45, 145, 141, 0.08) 45%, rgba(199, 146, 63, 0.11) 50%, transparent 58%);
+  transform: translateX(-115%);
+  animation: data-scan 13s ease-in-out infinite;
 }
 
 .projects-section .section-heading {
+  position: relative;
+  z-index: 1;
   display: block;
   max-width: 820px;
   margin-bottom: 68px;
@@ -607,6 +621,8 @@ h3 {
 }
 
 .projects-section .work-grid {
+  position: relative;
+  z-index: 1;
   width: min(980px, 100%);
   margin: 0 auto;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -628,13 +644,40 @@ h3 {
 }
 
 .projects-section .case-card {
+  position: relative;
+  isolation: isolate;
   grid-column: auto;
   display: block;
   overflow: hidden;
-  border-color: rgba(118, 96, 177, 0.28);
-  background: linear-gradient(180deg, rgba(37, 37, 54, 0.96), rgba(30, 30, 43, 0.96));
-  color: #f7f5ee;
-  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.24);
+  border-color: rgba(212, 202, 188, 0.88);
+  background: linear-gradient(180deg, rgba(255, 254, 253, 0.98), rgba(249, 247, 241, 0.98));
+  color: var(--ink);
+  box-shadow: 0 18px 48px rgba(34, 40, 51, 0.13), 0 2px 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+.projects-section .case-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  right: 22px;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, var(--teal), var(--gold), var(--red), var(--blue));
+  transform: scaleX(0.3);
+  transform-origin: left;
+  opacity: 0.82;
+  transition: transform 360ms ease;
+}
+
+.projects-section .case-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, rgba(45, 145, 141, 0.1), transparent 36%, rgba(199, 146, 63, 0.09));
+  opacity: 0;
+  transition: opacity 280ms ease;
 }
 
 .case-card:hover {
@@ -644,9 +687,37 @@ h3 {
 }
 
 .projects-section .case-card:hover {
-  transform: translateY(-9px);
-  border-color: rgba(199, 146, 63, 0.58);
-  box-shadow: 0 28px 74px rgba(0, 0, 0, 0.36);
+  transform: translateY(-11px) scale(1.01);
+  border-color: rgba(199, 146, 63, 0.68);
+  box-shadow: 0 30px 76px rgba(34, 40, 51, 0.2), 0 0 0 1px rgba(199, 146, 63, 0.15) inset;
+}
+
+.projects-section .case-card:hover::before {
+  transform: scaleX(1);
+}
+
+.projects-section .case-card:hover::after {
+  opacity: 1;
+}
+
+.projects-section .case-card.visible {
+  animation: project-card-pop 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.projects-section .case-card.visible:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.projects-section .case-card.visible:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.projects-section .case-card.visible:nth-child(4) {
+  animation-delay: 200ms;
+}
+
+.projects-section .case-card.visible:nth-child(5) {
+  animation-delay: 260ms;
 }
 
 .case-card.featured {
@@ -673,9 +744,24 @@ h3 {
 .projects-section .case-media {
   min-height: 250px;
   margin: 20px 20px 0;
-  border: 0;
+  border: 1px solid rgba(227, 222, 213, 0.9);
   border-radius: var(--radius);
   background: #f6f7f7;
+  box-shadow: 0 12px 28px rgba(34, 40, 51, 0.08);
+}
+
+.projects-section .case-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, transparent 42%, rgba(255, 255, 255, 0.64) 49%, transparent 56%, transparent 100%);
+  transform: translateX(-120%);
+  transition: transform 700ms ease;
+  pointer-events: none;
+}
+
+.projects-section .case-card:hover .case-media::after {
+  transform: translateX(120%);
 }
 
 .case-media img {
@@ -700,12 +786,12 @@ h3 {
   justify-content: center;
   width: 42px;
   height: 42px;
-  border: 1px solid rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(212, 202, 188, 0.92);
   border-radius: 50%;
-  background: rgba(15, 17, 26, 0.9);
-  color: #fff;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
-  transition: transform 180ms ease, background 180ms ease;
+  background: rgba(255, 254, 253, 0.94);
+  color: var(--ink);
+  box-shadow: 0 12px 26px rgba(34, 40, 51, 0.17);
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
 .case-action svg {
@@ -714,8 +800,10 @@ h3 {
 }
 
 .case-card:hover .case-action {
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-3px) scale(1.08);
   background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
 }
 
 .case-card:hover .case-media img {
@@ -771,6 +859,14 @@ h3 {
   box-shadow: 70px -18px 0 var(--gold), 142px 12px 0 var(--red), 230px -8px 0 var(--blue);
 }
 
+.projects-section .abstract-line::before {
+  animation: chart-area-breathe 5.5s ease-in-out infinite;
+}
+
+.projects-section .abstract-line::after {
+  animation: chart-line-glide 6.5s ease-in-out infinite;
+}
+
 .abstract-note {
   position: absolute;
   top: 20px;
@@ -808,7 +904,7 @@ h3 {
 
 .projects-section .case-body h3 {
   margin-top: 0;
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: clamp(1.38rem, 2vw, 1.8rem);
   font-weight: 800;
@@ -822,7 +918,7 @@ h3 {
 
 .projects-section .case-body p {
   min-height: 86px;
-  color: #aeb3bf;
+  color: var(--muted);
 }
 
 .tag-row {
@@ -845,12 +941,12 @@ h3 {
 }
 
 .projects-section .tag {
-  border: 0;
-  padding: 0;
-  min-height: auto;
-  background: transparent;
-  color: #d8b15f;
-  font-size: 0.86rem;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(199, 146, 63, 0.28);
+  background: rgba(247, 236, 217, 0.58);
+  color: #8a632a;
+  font-size: 0.82rem;
   font-weight: 760;
 }
 
@@ -1174,6 +1270,54 @@ h3 {
   50% {
     transform: scale(1.35);
     opacity: 0.95;
+  }
+}
+
+@keyframes data-scan {
+  0%,
+  18% {
+    transform: translateX(-115%);
+  }
+  42%,
+  100% {
+    transform: translateX(115%);
+  }
+}
+
+@keyframes chart-area-breathe {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes chart-line-glide {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-7deg);
+  }
+  50% {
+    transform: translateX(12px) rotate(-7deg);
+  }
+}
+
+@keyframes project-card-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  62% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
