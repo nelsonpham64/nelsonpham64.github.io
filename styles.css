@@ -830,6 +830,10 @@ h3 {
   height: 250px;
 }
 
+.projects-section .case-media img.code-cover {
+  object-position: left top;
+}
+
 .case-action {
   position: absolute;
   top: 14px;
