@@ -55,6 +55,46 @@ document.querySelectorAll(".reveal").forEach((item, index) => {
 const projectTabs = [...document.querySelectorAll("[data-project-tab]")];
 const projectCards = [...document.querySelectorAll("[data-project-group]")];
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+const cursorDot = document.querySelector(".cursor-dot");
+if (cursorDot && hasFinePointer && !reduceMotion) {
+  let targetX = -32;
+  let targetY = -32;
+  let currentX = targetX;
+  let currentY = targetY;
+
+  window.addEventListener("pointermove", (event) => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+    document.body.classList.add("cursor-ready");
+  }, { passive: true });
+
+  window.addEventListener("pointerover", (event) => {
+    const interactive = event.target.closest("a, button, .school-flip, .stack-chip, .case-card");
+    cursorDot.classList.toggle("is-hovering", Boolean(interactive));
+  });
+
+  window.addEventListener("pointerout", (event) => {
+    const related = event.relatedTarget;
+    if (!related || !related.closest || !related.closest("a, button, .school-flip, .stack-chip, .case-card")) {
+      cursorDot.classList.remove("is-hovering");
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    document.body.classList.remove("cursor-ready");
+  });
+
+  function animateCursor() {
+    currentX += (targetX - currentX) * 0.18;
+    currentY += (targetY - currentY) * 0.18;
+    cursorDot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
+  }
+
+  animateCursor();
+}
 
 function setProjectTab(group) {
   projectTabs.forEach((tab) => {
